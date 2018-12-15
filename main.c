@@ -3,6 +3,8 @@
  Program supplied as a starting point for
  Assignment 1: Student record manager
  COMP9024 17s2
+ 
+ //?? *type[] , what's this mean?
  **/
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,59 +26,105 @@ int main(int argc, char *argv[]) {
         // char converted to int
         int argc_count;
         sscanf(argv[1], "%d", &argc_count);
-        //printf("argc_count:%d\n", argc_count);
-        //char *id_count = malloc(sizeof(char));
-        
-        //testing
-        /*char *test;
-        test = "121411414241414";
-        printf("Testing: %s\n", test);
-        
-        The sizeof(char) = 1, sizeof(*char) = 8 for 64 bits CPU
-        int charArraySize = sizeof(test);
-        printf("Testing Char Arry Size: %d\n", charArraySize);*/
+        //int student_count = argc_count;
         
         typedef struct{
-            char id[8];
+            char id[9];
             int credit;
             float wam;
         }studentRecord;
         
-        //studentRecord *studentRecords = malloc(argc_count*sizeof(studentRecord));
-        //assert(studentRecords != NULL);
+        //studentRecord *studentRecord = malloc(argc_count*sizeof(studentRecords));
+        studentRecord studentRecords[argc_count];
+        assert(studentRecords != NULL);
         
-        while (argc_count > 0) {
+        for (int i = 0; i < argc_count; i++) {
             
             char id_digits[100];
+            int points;//whether the variable needs to be initialized or not
+            float wam;
             
+            // expecting a 7-digit number
             while (1) {
                 
-                printf("Enter student ID: \n");
+                printf("Enter student ID: ");
                 scanf("%s",&id_digits[0]);
-                printf("Enter student ID is : %s\n",id_digits);
-                
+               // printf("Enter student ID is : %s\n",id_digits);
                 int id_counts = 0;
                 char *c = &id_digits[0];
                 while (*c != '\0') {
                     c++;
                     id_counts++;
-                    //printf("Pointer Value ===== : %c\n",*c);
-                    //printf("ID Counts: %d\n",id_counts);
                 }
-                /* 2rd attempt, try to initial a unsigned int type for scanf the inputs
-                 while (id_digits != 0) {
-                    id_digits = id_digits / 10;
-                    id_counts++;
-                }*/
-                if (id_counts == 7) {
+                if (id_counts != 7) {
+
+                    printf("Not valid. Enter a valid value: \n");
+                    continue;
+                }
+                else {
+                    for (int j = 0; j < 8; j++) {
+                        studentRecords[i].id[j] = id_digits[j];
+                        //printf("studentRecords[%d]->id[%d] : %c\n", i,j, studentRecords[i].id[j]);
+                    }
                     break;
                 }
-                else {printf("Not valid. Enter a valid value: \n");}
             }
-
-            argc_count--;
+            //expecting a number between 2 and 480
+            while (1) {
+                printf("Enter credit points: ");
+                scanf("%d",&points);
+                if (points <= 2 || points >= 480) {
+                    
+                    printf("Not valid. Enter a valid value: \n");
+                    continue;
+                }
+                else {
+                    studentRecords[i].credit = points;
+                    break;
+                    
+                }
+            }
+                
+            //a floating point number between 50 and 100
+            while (1) {
+                printf("Enter WAM: ");
+                scanf("%f",&wam);
+                if (wam <=50 || wam >= 100) {
+                    
+                    printf("Not valid. Enter a valid value: \n");
+                    continue;
+                }
+                else {
+                    studentRecords[i].wam = wam;
+                    break;
+                }
+            }
             
+            //argc_count--;
         }
+        int sum_wam = 0;
+        for (int i = 0; i < argc_count; i++) {
+            printf("-----------------\n");
+            printf("Student zID: z%s\n",studentRecords[i].id);
+            printf("Credits: %d\n",studentRecords[i].credit);
+            if (studentRecords[i].credit >= 85) {
+                printf("Level of performance: HD\n");
+            }
+            else if (studentRecords[i].wam < 85 && studentRecords[i].wam >=75 ) {
+                printf("Level of performance: DN\n");
+            }
+            else if (studentRecords[i].wam < 75 && studentRecords[i].wam >=65 ) {
+                printf("Level of performance: CR\n");
+            }
+            else if (studentRecords[i].wam < 65 && studentRecords[i].wam >=50 ) {
+                printf("Level of performance: PS\n");
+            }
+            printf("Level of performance: %f\n",studentRecords[i].wam);
+            printf("-----------------\n");
+            sum_wam = studentRecords[i].wam + sum_wam;
+        }
+        printf("Average WAM:%f\n",sum_wam/argc_count);
+
             //scanf("%s",&studentRecords->id);
         
             /*if (studentRecords->credit <2 || studentRecords->credit >480) {
