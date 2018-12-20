@@ -28,23 +28,95 @@ float readFloat(void) {
 }
 
 /*** Your code for stage 1 starts here ***/
+/**/
+
 
 int readValidID(void) {
+    
+    printf("Enter student ID is : ");
+    
+    while (1) {
+        int id = readInt();
+        int id_7digits = id;
+        //printf("id: %d\n", id);
+        if (id == -1) {
+            printf("Not valid. Enter a valid value: \n");
+        }
+        else {
+            int id_counts = 0;
+            
+            while (id) {
+                id = id / 10;
+                id_counts++;
+            }
+            if (id_counts != 7) {
+                printf("Not valid. Enter a valid value: \n");
+                continue;
+            }
+            else {
+                printf("Student zID: z%d\n", id_7digits );
+                return id_7digits;
+                
+            }
+        }
+    }
 
-   return 0;  /* needs to be replaced */
+   //return 0;  /* needs to be replaced */
 }
 
 int readValidCredits(void) {
-
-   return 0;  /* needs to be replaced */
+    
+    while (1) {
+        printf("Enter credit points: ");
+        int points = readInt();
+        if (points <= 2 || points >= 480) {
+            printf("Not valid. Enter a valid value: \n");
+            continue;
+        }
+        else {
+            return points;
+        }
+    }
+   //return 0;  /* needs to be replaced */
 }
 
 float readValidWAM(void) {
-
-   return 0;  /* needs to be replaced */
+    
+    while (1) {
+        printf("Enter WAM: ");
+        float wam = readFloat();
+        if (wam <=50 || wam >= 100) {
+            
+            printf("Not valid. Enter a valid value: \n");
+            continue;
+        }
+        else {
+            return wam;
+        }
+    }
+   //return 0;  /* needs to be replaced */
 }
 
 void printStudentData(int zID, int credits, float WAM) {
-
-   return;  /* needs to be replaced */
+    
+    int sum_wam = 0;
+    printf("-----------------\n");
+    printf("Student zID: z%d\n",zID);
+    printf("Credits: %d\n",credits);
+    if (WAM >= 85) {
+        printf("Level of performance: HD\n");
+    }
+    else if (WAM < 85 && WAM >=75 ) {
+        printf("Level of performance: DN\n");
+    }
+    else if (WAM < 75 && WAM >=65 ) {
+        printf("Level of performance: CR\n");
+    }
+    else if (WAM < 65 && WAM >=50 ) {
+        printf("Level of performance: PS\n");
+    }
+    //printf("Level of performance: %f\n",WAM);
+    printf("-----------------\n");
+    
+   //return;  /* needs to be replaced */
 }
