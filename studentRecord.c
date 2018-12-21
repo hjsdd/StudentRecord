@@ -99,7 +99,6 @@ float readValidWAM(void) {
 
 void printStudentData(int zID, int credits, float WAM) {
     
-    int sum_wam = 0;
     printf("-----------------\n");
     printf("Student zID: z%d\n",zID);
     printf("Credits: %d\n",credits);

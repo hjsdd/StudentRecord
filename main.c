@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 
         studentRecordT studentRecords[argc_count];
         assert(studentRecords != NULL);
-        int sum_wam = 0;
+        float sum_wam = 0;
         
         for (int i = 0; i < argc_count; i++) {
             
@@ -40,6 +40,7 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < argc_count; i++) {
             printStudentData(studentRecords[i].zID,studentRecords[i].credits,studentRecords[i].WAM);
             sum_wam = studentRecords[i].WAM + sum_wam;
+            
         }
         printf("Average WAM:%f\n",sum_wam/argc_count);
         
